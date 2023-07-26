@@ -1,0 +1,24 @@
+.profile-image {
+    max-width: 40px;
+}
+
+.block-logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    height: 100%;
+    padding: 5px 8px;
+    background-color: red;
+    border-radius: 12px;
+}
+
+.block-logout:hover {
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+.block-logout-btn {
+    margin: 0;
+    color: #fff;
+}
