@@ -6,14 +6,11 @@ import reportWebVitals from "./reportWebVitals";
 
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import DefaultLayout from "./component/Layout/DefaultLayout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <Provider store={store}>
-        <DefaultLayout>
-            <App />
-        </DefaultLayout>
+        <App />
     </Provider>
 );
 

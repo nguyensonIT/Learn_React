@@ -9,7 +9,8 @@ import {
     Routes,
     Navigate,
 } from "react-router-dom";
-import { Profile } from "./component/Page/Profile";
+import Main from "./component/Layout/Main";
+import DefaultLayout from "./component/Layout/DefaultLayout";
 
 function App() {
     const token = useSelector((state) => state.token);
@@ -35,8 +36,15 @@ function App() {
         return (
             <Router>
                 <Routes>
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/*" element={<Navigate to="/profile" />} />
+                    <Route
+                        exact
+                        path="/*"
+                        element={
+                            <DefaultLayout>
+                                <Main />
+                            </DefaultLayout>
+                        }
+                    />
                 </Routes>
             </Router>
         );
