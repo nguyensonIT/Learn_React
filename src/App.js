@@ -10,7 +10,7 @@ import {
     Navigate,
 } from "react-router-dom";
 import Main from "./component/Layout/Main";
-import DefaultLayout from "./component/Layout/DefaultLayout";
+import DefaultLayoutAdmin from "./component/Layout/DefaultLayoutAdmin";
 
 function App() {
     const token = useSelector((state) => state.token);
@@ -40,9 +40,9 @@ function App() {
                         exact
                         path="/*"
                         element={
-                            <DefaultLayout>
+                            <DefaultLayoutAdmin>
                                 <Main />
-                            </DefaultLayout>
+                            </DefaultLayoutAdmin>
                         }
                     />
                 </Routes>

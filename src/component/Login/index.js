@@ -26,7 +26,6 @@ const Login = () => {
                 password: password,
             });
             localStorage.setItem("token", response.data.token);
-
             const res = await axios.get("http://localhost:8000/profile", {
                 params: {
                     token: response.data.token,

@@ -1,0 +1,20 @@
+.navlink {
+    margin-top: 50px;
+}
+
+.navlink-link {
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.navlink-link:hover {
+    background-color: antiquewhite;
+    text-decoration: none;
+}
+
+.icon {
+    margin-right: 20px;
+}
