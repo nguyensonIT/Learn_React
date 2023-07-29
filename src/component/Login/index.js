@@ -2,12 +2,13 @@ import "./login.css";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { saveToken, saveAccount } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
 const Login = () => {
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [password, setPassword] = useState("metaway2023");
     const [err, setErr] = useState("");
     const dispatch = useDispatch();
 
@@ -21,18 +22,20 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
+            // const response = await axios.post("http://localhost:8000/login", {
             const response = await axios.post("http://localhost:8000/login", {
                 username: username,
                 password: password,
             });
+
             localStorage.setItem("token", response.data.token);
             const res = await axios.get("http://localhost:8000/profile", {
-                params: {
+                headers: {
                     token: response.data.token,
                 },
             });
             dispatch(saveToken(response.data.token));
-            dispatch(saveAccount(res.data.user));
+            dispatch(saveAccount(res.data));
         } catch (error) {
             setErr(error?.response?.data.error);
             console.log(error?.response?.data);
@@ -65,7 +68,6 @@ const Login = () => {
         //         console.log(error?.response?.data);
         //     });
     };
-
     return (
         <div className="background">
             <div className="container mt-5">
@@ -114,6 +116,12 @@ const Login = () => {
                                     >
                                         Đăng nhập
                                     </button>
+                                    <Link
+                                        className="btn btn-primary btn-block"
+                                        to="/signup"
+                                    >
+                                        Đăng ký
+                                    </Link>
                                 </form>
                             </div>
                         </div>

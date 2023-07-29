@@ -1,5 +1,7 @@
 .profile-image {
     max-width: 40px;
+    height: 40px;
+    object-fit: cover;
 }
 
 
@@ -7,7 +9,12 @@
 .header {
     position: fixed;
     width: 100%;
-    height: 100px;
+    z-index: 2023;
+}
+
+.header-info.active {
+    background-color: unset;
+    user-select: none;
 }
 
 .logo-img {
@@ -48,4 +55,5 @@
     display: block;
     background-color: rgba(0, 0, 0, .3);
     user-select: none;
+    z-index: 10;
 }

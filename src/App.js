@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Main from "./component/Layout/Main";
 import DefaultLayoutAdmin from "./component/Layout/DefaultLayoutAdmin";
+import Signup from "./component/Signup";
 
 function App() {
     const token = useSelector((state) => state.token);
@@ -20,11 +21,11 @@ function App() {
     const fetchData = async (token) => {
         try {
             const res = await axios.get("http://localhost:8000/profile", {
-                params: {
+                headers: {
                     token: token,
                 },
             });
-            dispatch(saveAccount({ name: res.data.user.name }));
+            dispatch(saveAccount(res.data));
         } catch (err) {
             dispatch(dispatch(saveToken(localStorage.removeItem("token"))));
             console.log(err);
@@ -37,7 +38,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route
-                        exact
+                        exact={true}
                         path="/*"
                         element={
                             <DefaultLayoutAdmin>
@@ -53,8 +54,10 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/*" element={<Navigate to="/login" />} />
+                <Route path="/*" element={<Login />} />
+                {/* <Route path="/*" element={<Navigate to="/login" />} /> */}
+                <Route path="/signup" element={<Signup />} />
+                {/* <Route path="/*" element={<Signup />} /> */}
             </Routes>
         </Router>
     );

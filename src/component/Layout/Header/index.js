@@ -6,7 +6,7 @@ import { PopupLogout } from "../../Popup";
 
 const Header = () => {
     const [isFormLogout, setIsFormLogout] = useState(false);
-    const info = useSelector((state) => state.account.name);
+    const info = useSelector((state) => state.account);
     const dispatch = useDispatch();
     const handleLogout = () => {
         dispatch(saveToken(localStorage.removeItem("token")));
@@ -17,8 +17,6 @@ const Header = () => {
         isFormLogout
             ? (document.body.style.overflow = "auto")
             : (document.body.style.overflow = "hidden");
-
-        console.log(isFormLogout);
     };
 
     return (
@@ -41,16 +39,16 @@ const Header = () => {
                             aria-expanded="false"
                         >
                             <div
-                                className="nav-link nav-profile-link dropdown-toggle"
+                                className="nav-link nav-profile-link dropdown-toggle header-info"
                                 id="settings-tab"
                                 data-toggle="tab"
                                 role="tab"
                                 aria-controls="settings"
                                 aria-selected="false"
                             >
-                                <span className="mr-2">{info || ""}</span>
+                                <span className="mr-2">{info.name || ""}</span>
                                 <img
-                                    src="https://static.vecteezy.com/system/resources/previews/002/002/403/original/man-with-beard-avatar-character-isolated-icon-free-vector.jpg"
+                                    src={info.avatar}
                                     alt="Profile Image"
                                     className="img-thumbnail rounded-circle profile-image"
                                 />

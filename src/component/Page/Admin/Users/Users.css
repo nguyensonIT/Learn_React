@@ -1,0 +1,60 @@
+.header-user {}
+
+.header-search {
+    margin-bottom: 50px;
+}
+
+.header-search-inp {
+    display: flex;
+    margin-left: auto;
+    width: 33.333%;
+    border: 1.5px solid rgba(22, 24, 35, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.header-search-inp input {
+    padding: 5px 10px;
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+.header-search-inp:focus-within {
+    border: 1.5px solid antiquewhite;
+}
+
+.header-search-inp input:not(:placeholder-shown)~.header-search-btn i {
+    color: black;
+}
+
+.header-search-btn {
+    border: none;
+    padding: 10px;
+}
+
+.header-search-btn i {
+    color: #ccc;
+}
+
+/* check radio  */
+
+.form-check-sex {
+    text-align: end;
+    margin: 30px 0;
+}
+
+.label-sex {
+    color: #000;
+    margin-right: 20px;
+}
+
+.form-check-input-sex {
+    margin-right: 5px;
+}
+
+/* content */
+
+.content {
+    overflow-x: scroll;
+}

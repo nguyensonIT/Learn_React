@@ -1,0 +1,46 @@
+.form-signup {
+    background: url("https://blitzen.com/blog/wp-content/uploads/new-tech.jpg") no-repeat center/cover;
+}
+
+.form-signup-overley {
+    background-color: rgba(0, 0, 0, .6);
+}
+
+.form-main {
+    padding-bottom: 100px;
+}
+
+.form-group input::placeholder {
+    color: #ccc;
+}
+
+.form-signup input {
+    background-color: transparent;
+}
+
+.card-header {
+    background-color: unset;
+    border: unset;
+}
+
+.label-form {}
+
+.form-group {
+    width: 100%;
+}
+
+.form-check-sex-signup .label-form {
+    margin-right: 20px;
+}
+
+.label-sex-signup {
+    margin-right: 20px;
+}
+
+.hobby-label {
+    margin-left: 8px;
+}
+
+.form-hobby-main {
+    margin-left: 30px;
+}
