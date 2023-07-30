@@ -3,7 +3,7 @@
 }
 
 .form-signup-overley {
-    background-color: rgba(0, 0, 0, .6);
+    background-color: rgba(0, 0, 0, .4);
 }
 
 .form-main {
@@ -23,7 +23,18 @@
     border: unset;
 }
 
-.label-form {}
+.label-form::after {
+    content: " *";
+    color: red;
+    font-size: 20px;
+}
+
+.label-form-err {
+    color: red;
+    font-size: 12px;
+    font-style: italic;
+    display: block;
+}
 
 .form-group {
     width: 100%;

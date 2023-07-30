@@ -4,15 +4,16 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 import { FormCheckBoxHobby } from "./component/FormCheckBoxHobby/FormCheckBoxHobby";
+import { ValidateForm } from "./component/FormCheckBoxHobby/ValidateForm";
 
 const Login = () => {
-    const [fullname, setFullname] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [fullname, setFullname] = useState("Nguyễn Văn Sơn");
+    const [username, setUsername] = useState("nguyensonIT");
+    const [password, setPassword] = useState("123456");
     const [passwordRemaining, setPasswordRemaining] = useState("");
-    const [dateBirth, setDateBirth] = useState("");
-    const [address, setAddress] = useState("");
-    const [phone, setPhone] = useState("");
+    const [dateBirth, setDateBirth] = useState("26/10/2000");
+    const [address, setAddress] = useState("Hải Dương");
+    const [phone, setPhone] = useState("0399790072");
 
     const [checkedSex, setCheckedSex] = useState("Male");
     const [checkHobby, setCheckHobby] = useState([]);
@@ -47,7 +48,21 @@ const Login = () => {
     };
 
     const handleSignup = () => {
-        console.log({
+        try {
+            axios.post("http://localhost:8000/sign-up", {
+                fullname: fullname,
+                username: username,
+                password: password,
+                dateBirth: dateBirth,
+                address: address,
+                phone: phone,
+                checkedSex: checkedSex,
+                checkHobby: checkHobby,
+            });
+        } catch (err) {
+            console.log(err);
+        }
+        ValidateForm({
             fullname: fullname,
             username: username,
             password: password,
@@ -55,7 +70,7 @@ const Login = () => {
             dateBirth: dateBirth,
             address: address,
             phone: phone,
-            checkHobby: [checkHobby],
+            checkHobby: checkHobby,
         });
     };
 
@@ -68,7 +83,10 @@ const Login = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputAddress2" className="label-form">
-                            Họ và tên
+                            Họ và tên:
+                        </label>
+                        <label className="label-form-err">
+                            Vui lòng không được để trống
                         </label>
                         <input
                             type="text"
@@ -80,7 +98,10 @@ const Login = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputEmail4" className="label-form">
-                            Tên tài khoản
+                            Tên tài khoản:
+                        </label>
+                        <label className="label-form-err">
+                            Vui lòng không được để trống
                         </label>
                         <input
                             type="text"
@@ -92,7 +113,10 @@ const Login = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputPassword4" className="label-form">
-                            Mật khẩu
+                            Mật khẩu:
+                        </label>
+                        <label className="label-form-err">
+                            Vui lòng không được để trống
                         </label>
                         <input
                             type="password"
@@ -104,7 +128,10 @@ const Login = () => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="inputPassword5" className="label-form">
-                            Nhập lại mật khẩu
+                            Nhập lại mật khẩu:
+                        </label>
+                        <label className="label-form-err">
+                            Vui lòng không được để trống
                         </label>
                         <input
                             type="password"
@@ -128,7 +155,7 @@ const Login = () => {
                             className="label-sex-signup"
                             htmlFor="flexRadioDefault2"
                         >
-                            Male
+                            Nam
                         </label>
                         <input
                             className="form-check-input-sex"
@@ -142,13 +169,16 @@ const Login = () => {
                             className="label-sex-signup"
                             htmlFor="flexRadioDefault1"
                         >
-                            Female
+                            Nữ
                         </label>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="inputDate6" className="label-form">
-                            Ngày sinh
+                            Ngày sinh:
+                        </label>
+                        <label className="label-form-err">
+                            Vui lòng không được để trống
                         </label>
                         <input
                             type="date"
@@ -161,7 +191,10 @@ const Login = () => {
 
                     <div className="form-group">
                         <label htmlFor="inputAddress" className="label-form">
-                            Địa chỉ
+                            Địa chỉ:
+                        </label>
+                        <label className="label-form-err">
+                            Vui lòng không được để trống
                         </label>
                         <input
                             type="text"
@@ -174,7 +207,10 @@ const Login = () => {
 
                     <div className="form-group">
                         <label htmlFor="inputCity" className="label-form">
-                            Số điện thoại
+                            Số điện thoại:
+                        </label>
+                        <label className="label-form-err">
+                            Vui lòng không được để trống
                         </label>
                         <input
                             type="tel"
@@ -186,7 +222,10 @@ const Login = () => {
                     </div>
 
                     <div className="form-group">
-                        <label>Sở thích</label>
+                        <label className="label-form">Sở thích:</label>
+                        <label className="label-form-err">
+                            Vui lòng không được để trống
+                        </label>
                         <FormCheckBoxHobby
                             handleHobbySelect={handleHobbySelect}
                         />
