@@ -1,15 +1,19 @@
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import axios from "axios";
 import { useState } from "react";
 import { FormCheckBoxHobby } from "./component/FormCheckBoxHobby/FormCheckBoxHobby";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Signup = () => {
     const [checkedSex, setCheckedSex] = useState("Male");
     const [hobbies, setHobbies] = useState([]);
     const [hobbiesErr, setHobbiesErr] = useState([]);
+    const navigate = useNavigate();
 
     const {
         register,
@@ -63,13 +67,25 @@ const Signup = () => {
                 sex: data.checkedSex,
                 hobby: data.hobbies,
             });
+            toast.success(
+                "Đăng ký thành công! Đưa bạn về trang đăng nhập sau 5s"
+            );
+            setTimeout(() => {
+                navigate("/");
+            }, 5000);
         } catch (err) {
+            if (err.response?.status === 409) {
+                toast.error(
+                    "Username hoặc Email đã có người đăng ký! Vui lòng thử lại"
+                );
+            }
             console.log(err);
         }
     };
     return (
         <div className="form-signup">
             <div className="form-signup-overley">
+                <ToastContainer theme="light" />
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="container form-main"
@@ -315,11 +331,7 @@ const Signup = () => {
                         />
                     </div>
 
-                    <button
-                        type="submit"
-                        className="btn btn-primary btn-block"
-                        // onClick={handleSignup}
-                    >
+                    <button type="submit" className="btn btn-primary btn-block">
                         Đăng ký
                     </button>
                     <Link className="btn btn-primary btn-block" to="/">
