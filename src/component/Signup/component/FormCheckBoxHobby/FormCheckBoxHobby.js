@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export const FormCheckBoxHobby = ({ handleHobbySelect }) => {
     const handleCheckBox = (e) => {
         const { value, checked } = e.target;

@@ -10,6 +10,7 @@ const Header = () => {
     const dispatch = useDispatch();
     const handleLogout = () => {
         dispatch(saveToken(localStorage.removeItem("token")));
+        document.body.style.overflow = "auto";
     };
     const handleShowForm = (e) => {
         e.preventDefault();
