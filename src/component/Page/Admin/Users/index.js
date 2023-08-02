@@ -2,11 +2,39 @@ import "./Users.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Popup } from "../../../components/Popup";
+import { FormUpdate } from "./components/Update";
 function Users() {
     const token = useSelector((state) => state.token);
     const [users, setUsers] = useState([]);
+    const [isShowPopup, setIsShowPopup] = useState(false);
+    const [isShowFormUpdate, setIsShowFormUpdate] = useState(false);
+    const [infoUserDelete, setInfoUserDelete] = useState({});
+    const [infoUserEdit, setInfoUserEdit] = useState({});
 
     const [checkedSex, setCheckedSex] = useState("all");
+
+    const handleDelete = async () => {
+        await axios
+            .delete(`http://localhost:8000/users/${infoUserDelete._id}`)
+            .then((res) => {
+                console.log(res);
+                setIsShowPopup(!isShowPopup);
+            })
+            .catch((err) => {
+                console.log(err);
+                setIsShowPopup(!isShowPopup);
+            });
+    };
+    const handleEdit = (info) => {
+        setIsShowFormUpdate(!isShowFormUpdate);
+        document.querySelector("body").style.overflow = "hidden";
+        setInfoUserEdit(info);
+    };
+    const handleShowForm = (info) => {
+        setIsShowPopup(!isShowPopup);
+        setInfoUserDelete(info);
+    };
 
     useEffect(() => {
         axios
@@ -15,10 +43,29 @@ function Users() {
                     token: token,
                 },
             })
-            .then((res) => setUsers(res.data));
+            .then((res) => {
+                return setUsers(res.data);
+            });
     }, [token]);
     return (
         <div className="container">
+            {/* Popup  */}
+            {isShowPopup && (
+                <Popup
+                    handleSubmit={handleDelete}
+                    handleShowForm={handleShowForm}
+                    title="Xóa người dùng"
+                    content={`Bạn có chắc muốn xóa người dùng ${infoUserDelete.name} này?`}
+                    btnSubmitText="Delete"
+                />
+            )}
+            {isShowFormUpdate && (
+                <FormUpdate
+                    infoUserEdit={infoUserEdit}
+                    setIsShowFormUpdate={setIsShowFormUpdate}
+                />
+            )}
+
             <div className="header-user">
                 <h1>Users</h1>
                 <div className="header-search">
@@ -85,6 +132,8 @@ function Users() {
                             <th>Email</th>
                             <th>Địa chỉ</th>
                             <th>Vai trò</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,6 +147,18 @@ function Users() {
                                     <td>{user.email}</td>
                                     <td>{user.address}</td>
                                     <td>{user.role}</td>
+                                    <td>
+                                        <i
+                                            onClick={() => handleEdit(user)}
+                                            className="fas fa-user-edit user-icon"
+                                        ></i>
+                                    </td>
+                                    <td>
+                                        <i
+                                            onClick={() => handleShowForm(user)}
+                                            className="fas fa-trash user-icon"
+                                        ></i>
+                                    </td>
                                 </tr>
                             );
                         })}

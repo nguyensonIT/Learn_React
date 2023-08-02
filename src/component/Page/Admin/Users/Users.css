@@ -58,3 +58,10 @@
 .content {
     overflow-x: scroll;
 }
+
+/* icon  */
+
+.user-icon:hover {
+    color: #0056b3;
+    cursor: pointer;
+}

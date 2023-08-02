@@ -1,9 +1,8 @@
-export const FormCheckBoxHobby = ({ handleHobbySelect }) => {
+export const FormCheckBoxHobby = ({ handleHobbySelect, hobbiesCheck }) => {
     const handleCheckBox = (e) => {
         const { value, checked } = e.target;
         handleHobbySelect(value, checked);
     };
-
     const hobbies = [
         { id: "thethao", name: "Thể thao" },
         { id: "docsach", name: "Đọc sách" },
@@ -15,6 +14,7 @@ export const FormCheckBoxHobby = ({ handleHobbySelect }) => {
         { id: "choigame", name: "Chơi game" },
         { id: "hocngoaingu", name: "Học ngoại ngữ" },
     ];
+
     return (
         <div className="form-group form-row form-hobby-main">
             {hobbies.map((hobby, index) => (
@@ -24,6 +24,9 @@ export const FormCheckBoxHobby = ({ handleHobbySelect }) => {
                         id={hobby.id}
                         value={hobby.name}
                         onChange={handleCheckBox}
+                        defaultChecked={
+                            hobbiesCheck && hobbiesCheck.includes(hobby.name)
+                        }
                     />
                     <label className="hobby-label" htmlFor={hobby.id}>
                         {hobby.name}

@@ -8,7 +8,7 @@ import axios from "axios";
 
 const Login = () => {
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("metaway2023");
+    const [password, setPassword] = useState("Metaway2023@");
     const [err, setErr] = useState("");
     const dispatch = useDispatch();
 
@@ -26,7 +26,6 @@ const Login = () => {
                 username: username,
                 password: password,
             });
-
             localStorage.setItem("token", response.data.token);
             const res = await axios.get("http://localhost:8000/profile", {
                 headers: {

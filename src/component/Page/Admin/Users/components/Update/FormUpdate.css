@@ -1,0 +1,19 @@
+.form-update {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: scroll;
+    height: 100vh;
+    background: url("https://equinoxbusinesslaw.com/wp-content/uploads/2022/10/kelly-sikkema-wgcUx0kR1ps-unsplash-scaled.jpg") no-repeat center/cover;
+}
+
+.form-update .form-signup-overley {
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.form-update .form-main {}
+
+.form-update label::after {
+    content: unset;
+}

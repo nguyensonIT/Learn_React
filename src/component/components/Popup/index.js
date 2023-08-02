@@ -1,11 +1,16 @@
-import "./Popup.css";
-export const PopupLogout = ({ handleLogout, handleShowForm }) => {
+export const Popup = ({
+    handleShowForm,
+    handleSubmit,
+    title,
+    content,
+    btnSubmitText,
+}) => {
     return (
         <div className="modal" tabIndex="-1">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Đăng xuất</h5>
+                        <h5 className="modal-title">{title}</h5>
                         <button
                             type="button"
                             className="btn-close"
@@ -17,7 +22,7 @@ export const PopupLogout = ({ handleLogout, handleShowForm }) => {
                         </button>
                     </div>
                     <div className="modal-body">
-                        <p>Bạn có chắc muốn đăng xuất không?</p>
+                        <p>{content}</p>
                     </div>
                     <div className="modal-footer">
                         <button
@@ -26,14 +31,14 @@ export const PopupLogout = ({ handleLogout, handleShowForm }) => {
                             data-bs-dismiss="modal"
                             onClick={handleShowForm}
                         >
-                            Thoát
+                            Hủy
                         </button>
                         <button
                             type="button"
                             className="btn btn-primary"
-                            onClick={handleLogout}
+                            onClick={handleSubmit}
                         >
-                            Đăng xuất
+                            {btnSubmitText}
                         </button>
                     </div>
                 </div>

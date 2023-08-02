@@ -1,37 +1,43 @@
-import "./Signup.css";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-
-import axios from "axios";
 import { useState } from "react";
-import { FormCheckBoxHobby } from "./component/FormCheckBoxHobby/FormCheckBoxHobby";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Loading from "../components/Loading";
-
-const Signup = () => {
-    const [checkedSex, setCheckedSex] = useState("Male");
-    const [hobbies, setHobbies] = useState([]);
-    const [hobbiesErr, setHobbiesErr] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
-
+import { useForm } from "react-hook-form";
+import "./FormUpdate.css";
+import { FormCheckBoxHobby } from "../../../../../Signup/component/FormCheckBoxHobby/FormCheckBoxHobby";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+export const FormUpdate = ({ infoUserEdit, setIsShowFormUpdate }) => {
+    const [checkedSex, setCheckedSex] = useState(infoUserEdit.sex);
+    const [hobbies, setHobbies] = useState(infoUserEdit.hobby);
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm();
+    const handleSignup = async (data) => {
+        try {
+            await axios.put(`http://localhost:8000/users/${infoUserEdit._id}`, {
+                name: data.name,
+                username: data.username,
+                password: data.password,
+                birthDay: data.dateOfBirth,
+                address: data.address,
+                email: data.email,
+                phoneNumber: data.phone,
+                sex: data.checkedSex,
+                hobby: data.hobbies,
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    const handleCencel = () => {
+        setIsShowFormUpdate(false);
+        document.querySelector("body").style.overflow = "auto";
+    };
     const onSubmit = (data) => {
         data.checkedSex = checkedSex;
         data.hobbies = hobbies;
-        if (hobbies.length > 0) {
-            handleSignup(data);
-            setHobbiesErr("");
-        } else {
-            setHobbiesErr("Vui lòng chọn ít nhất 1 sở thích");
-        }
+        handleSignup(data);
     };
 
     const validateDateOfBirth = (value) => {
@@ -43,8 +49,6 @@ const Signup = () => {
             parseInt(date.getFullYear()) >= 1945
         ) {
             return true;
-        } else {
-            return "Năm sinh không hợp lệ!";
         }
     };
 
@@ -53,57 +57,25 @@ const Signup = () => {
             ? setHobbies([...hobbies, hobbyName])
             : setHobbies(hobbies.filter((hobby) => hobby !== hobbyName));
     };
-
-    const password = watch("password");
-
-    const handleSignup = async (data) => {
-        try {
-            setIsLoading(true);
-            await axios.post("http://localhost:8000/sign-up", {
-                name: data.name,
-                username: data.username,
-                password: data.password,
-                birthDay: data.dateOfBirth,
-                address: data.address,
-                email: data.email,
-                phoneNumber: data.phone,
-                sex: data.checkedSex,
-                hobby: data.hobbies,
-            });
-            toast.success(
-                "Đăng ký thành công! Đưa bạn về trang đăng nhập sau 5s"
-            );
-            setTimeout(() => {
-                navigate("/");
-            }, 5000);
-        } catch (err) {
-            if (err.response?.status === 404) {
-                toast.error(
-                    "Username hoặc Email đã có người đăng ký! Vui lòng thử lại"
-                );
-            }
-            console.log(err);
-        } finally {
-            setIsLoading(false);
-        }
-    };
     return (
-        <div className="form-signup">
+        <div className="form-update">
             <div className="form-signup-overley">
-                <ToastContainer theme="light" />
+                {/* <ToastContainer theme="light" />
                 {isLoading && (
                     <div className="overlay-loading">
                         <Loading type={"spin"} className="loadding-custome" />
                     </div>
-                )}
+                )} */}
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="container form-main"
                 >
                     <div className="card-header">
-                        <h3 className="text-center">Đăng ký</h3>
+                        <h3 className="text-center">
+                            Cập nhật người dùng {infoUserEdit.name}
+                        </h3>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group ">
                         <label htmlFor="inputAddress2" className="label-form">
                             Họ và tên:
                         </label>
@@ -115,6 +87,7 @@ const Signup = () => {
                             className="form-control"
                             id="inputAddress2"
                             placeholder="Nhập họ và tên"
+                            defaultValue={infoUserEdit.name}
                             {...register("name", {
                                 minLength: {
                                     value: 5,
@@ -124,11 +97,10 @@ const Signup = () => {
                                     value: 25,
                                     message: "Tối đa 25 ký tự",
                                 },
-                                required: "Vui lòng nhập họ tên",
                             })}
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group ">
                         <label htmlFor="inputEmail4" className="label-form">
                             Tên tài khoản:
                         </label>
@@ -140,6 +112,7 @@ const Signup = () => {
                             className="form-control"
                             id="inputEmail4"
                             placeholder="Nhập tên tài khoản"
+                            defaultValue={infoUserEdit.username}
                             {...register("username", {
                                 minLength: {
                                     value: 5,
@@ -153,11 +126,10 @@ const Signup = () => {
                                     value: /^\S*$/,
                                     message: "Không có khoảng trắng",
                                 },
-                                required: "Vui lòng nhập username",
                             })}
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group ">
                         <label htmlFor="inputPassword4" className="label-form">
                             Mật khẩu:
                         </label>
@@ -169,6 +141,7 @@ const Signup = () => {
                             className="form-control"
                             id="inputPassword4"
                             placeholder="Nhập mật khẩu"
+                            defaultValue={infoUserEdit.password}
                             {...register("password", {
                                 minLength: {
                                     value: 8,
@@ -179,32 +152,11 @@ const Signup = () => {
                                     message:
                                         "Ít nhất 1 ký tự in hoa, 1 ký tự thường, 1 số và 1 ký tự đặc biệt",
                                 },
-                                required: "Vui lòng nhập password",
                             })}
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="inputPassword5" className="label-form">
-                            Nhập lại mật khẩu:
-                        </label>
-                        <label className="label-form-err">
-                            {errors.confirmPassword?.message}
-                        </label>
 
-                        <input
-                            type="password"
-                            className="form-control"
-                            id="inputPassword5"
-                            placeholder="Nhập lại mật khẩu"
-                            {...register("confirmPassword", {
-                                validate: (value) =>
-                                    value === password ||
-                                    "Password không trùng khớp.",
-                                required: "Password không được để trống",
-                            })}
-                        />
-                    </div>
-                    <div className="form-group form-check-sex-signup">
+                    <div className="form-group  form-check-sex-signup">
                         <label className="label-form">Giới tính: </label>
                         <input
                             className="form-check-input-sex"
@@ -236,7 +188,7 @@ const Signup = () => {
                         </label>
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group ">
                         <label htmlFor="inputDate6" className="label-form">
                             Ngày sinh:
                         </label>
@@ -248,14 +200,14 @@ const Signup = () => {
                             className="form-control"
                             id="inputDate6"
                             placeholder="Nhập lại mật khẩu"
+                            defaultValue={infoUserEdit.birthDay}
                             {...register("dateOfBirth", {
                                 validate: validateDateOfBirth,
-                                required: "Vui lòng nhập ngày sinh",
                             })}
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group ">
                         <label htmlFor="inputEmail" className="label-form">
                             Email:
                         </label>
@@ -267,17 +219,17 @@ const Signup = () => {
                             className="form-control"
                             id="inputEmail"
                             placeholder="Nhập Email"
+                            defaultValue={infoUserEdit.email}
                             {...register("email", {
                                 pattern: {
                                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                                     message: "Email sai định dạng",
                                 },
-                                required: "Vui lòng nhập Email",
                             })}
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group ">
                         <label htmlFor="inputAddress" className="label-form">
                             Địa chỉ:
                         </label>
@@ -289,6 +241,7 @@ const Signup = () => {
                             className="form-control"
                             id="inputAddress"
                             placeholder="vd: Hải Dương,..."
+                            defaultValue={infoUserEdit.address}
                             {...register("address", {
                                 minLength: {
                                     value: 5,
@@ -298,12 +251,11 @@ const Signup = () => {
                                     value: 100,
                                     message: "Tối đa 100 ký tự",
                                 },
-                                required: "Vui lòng nhập địa chỉ",
                             })}
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group ">
                         <label htmlFor="inputCity" className="label-form">
                             Số điện thoại:
                         </label>
@@ -315,6 +267,7 @@ const Signup = () => {
                             className="form-control"
                             id="inputCity"
                             placeholder="vd: 0399999999"
+                            defaultValue={infoUserEdit.phoneNumber}
                             {...register("phone", {
                                 pattern: {
                                     value: /^[0-9+]*$/,
@@ -328,29 +281,30 @@ const Signup = () => {
                                     value: 15,
                                     message: "Số điện thoại tối đa 15 số",
                                 },
-                                required: "Vui lòng nhập số điện thoại",
                             })}
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group ">
                         <label className="label-form">Sở thích:</label>
-                        <label className="label-form-err">{hobbiesErr}</label>
                         <FormCheckBoxHobby
                             handleHobbySelect={handleHobbySelect}
+                            hobbiesCheck={hobbies}
                         />
                     </div>
 
                     <button type="submit" className="btn btn-primary btn-block">
-                        Đăng ký
+                        Cập nhật
                     </button>
-                    <Link className="btn btn-primary btn-block" to="/">
-                        Trở lại
-                    </Link>
+                    <button
+                        type="button"
+                        className="btn btn-primary btn-block"
+                        onClick={handleCencel}
+                    >
+                        Huỷ
+                    </button>
                 </form>
             </div>
         </div>
     );
 };
-
-export default Signup;
