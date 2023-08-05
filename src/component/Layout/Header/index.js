@@ -52,7 +52,7 @@ const Header = () => {
                                     {Object.keys(info).length !== 0 &&
                                         info.name}
                                 </span>
-                                {/* <Avatar
+                                <Avatar
                                     name={
                                         Object.keys(info).length !== 0
                                             ? info
@@ -63,7 +63,7 @@ const Header = () => {
                                             ? info
                                             : { name: "", avatar: "" }
                                     }
-                                /> */}
+                                />
                             </div>
                         </div>
                         <div

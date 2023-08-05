@@ -23,20 +23,26 @@ function Users() {
     const [checkedSex, setCheckedSex] = useState("All");
     const [totalPage, setTotalPage] = useState(1);
     const [param, setParam] = useState(
-        searchParams.get("page") && {
-            page: parseInt(searchParams.get("page")),
-        }
+        searchParams.get("page")
+            ? {
+                  page: parseInt(searchParams.get("page")),
+                  limit: 6,
+              }
+            : {
+                  gender: searchParams.get("gender"),
+                  key: searchParams.get("key"),
+              }
     );
 
     const [isShowPopup, setIsShowPopup] = useState(false);
     const [isShowFormUpdate, setIsShowFormUpdate] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    // const urlAPI = "http://localhost:8000/users";
-    // const urlNhat = "";
+    const urlAPI = "http://localhost:8000/users";
+    const urlNhat = "";
 
-    const urlAPI = "";
-    const urlNhat = "http://192.168.1.161:8000/users";
+    // const urlAPI = "";
+    // const urlNhat = "http://192.168.1.161:8000/users";
 
     const handleDelete = async () => {
         try {
@@ -212,10 +218,10 @@ function Users() {
                                     <tr key={index}>
                                         <td>
                                             {
-                                                // <Avatar
-                                                //     name={user}
-                                                //     urlImg={user}
-                                                // />
+                                                <Avatar
+                                                    name={user}
+                                                    urlImg={user}
+                                                />
                                             }
                                         </td>
                                         <td>{user.username}</td>

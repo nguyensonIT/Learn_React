@@ -12,15 +12,15 @@ const Login = () => {
     const [err, setErr] = useState("");
     const dispatch = useDispatch();
 
-    // const urlAPILogin = "http://localhost:8000/login";
-    // const urlAPIProfile = "http://localhost:8000/profile";
-    // const urlAPILoginNhat = "";
-    // const urlAPIProfileNhat = "";
+    const urlAPILogin = "http://localhost:8000/login";
+    const urlAPIProfile = "http://localhost:8000/profile";
+    const urlAPILoginNhat = "";
+    const urlAPIProfileNhat = "";
 
-    const urlAPILogin = "";
-    const urlAPIProfile = "";
-    const urlAPILoginNhat = "http://192.168.1.161:8000/login";
-    const urlAPIProfileNhat = "http://192.168.1.161:8000/profile";
+    // const urlAPILogin = "";
+    // const urlAPIProfile = "";
+    // const urlAPILoginNhat = "http://192.168.1.161:8000/login";
+    // const urlAPIProfileNhat = "http://192.168.1.161:8000/profile";
 
     const handleUsernameInput = (e) => {
         setUsername(e.target.value);

@@ -16,11 +16,11 @@ const Signup = () => {
     const [hobbiesErr, setHobbiesErr] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    // const urlAPI = "http://localhost:8000/sign-up";
-    // const urlNhat = "";
+    const urlAPI = "http://localhost:8000/sign-up";
+    const urlNhat = "";
 
-    const urlAPI = "";
-    const urlNhat = "http://192.168.1.161:8000/sign-up";
+    // const urlAPI = "";
+    // const urlNhat = "http://192.168.1.161:8000/sign-up";
 
     const {
         register,

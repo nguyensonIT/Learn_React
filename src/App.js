@@ -16,11 +16,11 @@ import Signup from "./component/Signup";
 function App() {
     const token = useSelector((state) => state.token);
 
-    // const urlAPINhat = "";
-    // const urlAPI = "http://localhost:8000/profile";
+    const urlAPINhat = "";
+    const urlAPI = "http://localhost:8000/profile";
 
-    const urlAPI = "";
-    const urlAPINhat = "http://192.168.1.161:8000/profile";
+    // const urlAPI = "";
+    // const urlAPINhat = "http://192.168.1.161:8000/profile";
 
     const dispatch = useDispatch();
 
