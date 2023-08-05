@@ -2,12 +2,26 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "./FormUpdate.css";
 import { FormCheckBoxHobby } from "../../../../../Signup/component/FormCheckBoxHobby/FormCheckBoxHobby";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loading from "react-loading";
+
 import axios from "axios";
-export const FormUpdate = ({ infoUserEdit, setIsShowFormUpdate }) => {
+import { useSelector } from "react-redux";
+export const FormUpdate = ({
+    infoUserEdit,
+    setIsShowFormUpdate,
+    loadDataUser,
+}) => {
+    const token = useSelector((state) => state.token);
     const [checkedSex, setCheckedSex] = useState(infoUserEdit.sex);
     const [hobbies, setHobbies] = useState(infoUserEdit.hobby);
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const urlAPI = "http://localhost:8000/users";
+
+    const urlNhat = "http://192.168.1.161:8000/users";
     const {
         register,
         handleSubmit,
@@ -15,19 +29,34 @@ export const FormUpdate = ({ infoUserEdit, setIsShowFormUpdate }) => {
     } = useForm();
     const handleSignup = async (data) => {
         try {
-            await axios.put(`http://localhost:8000/users/${infoUserEdit._id}`, {
-                name: data.name,
-                username: data.username,
-                password: data.password,
-                birthDay: data.dateOfBirth,
-                address: data.address,
-                email: data.email,
-                phoneNumber: data.phone,
-                sex: data.checkedSex,
-                hobby: data.hobbies,
-            });
+            setIsLoading(true);
+            await axios.put(
+                `${urlAPI || urlNhat}/${infoUserEdit._id}`,
+                {
+                    name: data.name,
+                    username: data.username,
+                    password: data.password,
+                    birthDay: data.dateOfBirth,
+                    address: data.address,
+                    email: data.email,
+                    phoneNumber: data.phone,
+                    sex: data.checkedSex,
+                    hobby: data.hobbies,
+                },
+                {
+                    headers: {
+                        token: token,
+                    },
+                },
+                loadDataUser(),
+                toast.success("Cập nhật thành công người dùng!"),
+                handleCencel()
+            );
         } catch (err) {
+            toast.err("Cập nhật người dùng thất bại, vui lòng thử lại!");
             console.log(err);
+        } finally {
+            setIsLoading(false);
         }
     };
     const handleCencel = () => {
@@ -60,12 +89,12 @@ export const FormUpdate = ({ infoUserEdit, setIsShowFormUpdate }) => {
     return (
         <div className="form-update">
             <div className="form-signup-overley">
-                {/* <ToastContainer theme="light" />
+                <ToastContainer theme="light" />
                 {isLoading && (
                     <div className="overlay-loading">
                         <Loading type={"spin"} className="loadding-custome" />
                     </div>
-                )} */}
+                )}
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="container form-main"

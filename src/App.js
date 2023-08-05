@@ -16,11 +16,17 @@ import Signup from "./component/Signup";
 function App() {
     const token = useSelector((state) => state.token);
 
+    // const urlAPINhat = "";
+    // const urlAPI = "http://localhost:8000/profile";
+
+    const urlAPI = "";
+    const urlAPINhat = "http://192.168.1.161:8000/profile";
+
     const dispatch = useDispatch();
 
     const fetchData = async (token) => {
         try {
-            const res = await axios.get("http://localhost:8000/profile", {
+            const res = await axios.get(urlAPI || urlAPINhat, {
                 headers: {
                     token: token,
                 },

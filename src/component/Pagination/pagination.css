@@ -1,0 +1,47 @@
+.pagination-handmade {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.btn-page,
+.btn-btn {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    user-select: none;
+}
+
+.btn-btn:not(:disabled):hover {
+    background-color: #ccc;
+}
+
+.btn-btn:focus {
+    outline: none;
+}
+
+.btn-page {
+    margin: 0 10px;
+    user-select: none;
+}
+
+.current-page {
+    background-color: #ccc;
+}
+
+.btn-next {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.btn-prev {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}

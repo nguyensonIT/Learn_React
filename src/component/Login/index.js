@@ -12,6 +12,16 @@ const Login = () => {
     const [err, setErr] = useState("");
     const dispatch = useDispatch();
 
+    // const urlAPILogin = "http://localhost:8000/login";
+    // const urlAPIProfile = "http://localhost:8000/profile";
+    // const urlAPILoginNhat = "";
+    // const urlAPIProfileNhat = "";
+
+    const urlAPILogin = "";
+    const urlAPIProfile = "";
+    const urlAPILoginNhat = "http://192.168.1.161:8000/login";
+    const urlAPIProfileNhat = "http://192.168.1.161:8000/profile";
+
     const handleUsernameInput = (e) => {
         setUsername(e.target.value);
     };
@@ -22,12 +32,12 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8000/login", {
+            const response = await axios.post(urlAPILogin || urlAPILoginNhat, {
                 username: username,
                 password: password,
             });
             localStorage.setItem("token", response.data.token);
-            const res = await axios.get("http://localhost:8000/profile", {
+            const res = await axios.get(urlAPIProfile || urlAPIProfileNhat, {
                 headers: {
                     token: response.data.token,
                 },

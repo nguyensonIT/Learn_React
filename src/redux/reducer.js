@@ -1,6 +1,7 @@
 const initValue = {
     token: localStorage.getItem("token"),
     account: {},
+    page: localStorage.getItem("page"),
 };
 const rootReducer = (state = initValue, action) => {
     switch (action.type) {

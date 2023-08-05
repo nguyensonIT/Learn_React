@@ -12,6 +12,12 @@
     z-index: 2023;
 }
 
+.header-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .header-info.active {
     background-color: unset;
     user-select: none;

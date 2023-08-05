@@ -16,6 +16,11 @@ const Signup = () => {
     const [hobbiesErr, setHobbiesErr] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    // const urlAPI = "http://localhost:8000/sign-up";
+    // const urlNhat = "";
+
+    const urlAPI = "";
+    const urlNhat = "http://192.168.1.161:8000/sign-up";
 
     const {
         register,
@@ -59,7 +64,7 @@ const Signup = () => {
     const handleSignup = async (data) => {
         try {
             setIsLoading(true);
-            await axios.post("http://localhost:8000/sign-up", {
+            await axios.post(urlAPI || urlNhat, {
                 name: data.name,
                 username: data.username,
                 password: data.password,

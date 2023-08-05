@@ -3,6 +3,7 @@ import "./Header.css";
 import { saveToken } from "../../../redux/actions";
 import { useState } from "react";
 import { PopupLogout } from "../../Popup";
+import { Avatar } from "../../Page/Admin/Users/components/Avartar";
 
 const Header = () => {
     const [isFormLogout, setIsFormLogout] = useState(false);
@@ -47,12 +48,22 @@ const Header = () => {
                                 aria-controls="settings"
                                 aria-selected="false"
                             >
-                                <span className="mr-2">{info.name || ""}</span>
-                                <img
-                                    src={info.avatar}
-                                    alt="Profile Image"
-                                    className="img-thumbnail rounded-circle profile-image"
-                                />
+                                <span className="mr-2">
+                                    {Object.keys(info).length !== 0 &&
+                                        info.name}
+                                </span>
+                                {/* <Avatar
+                                    name={
+                                        Object.keys(info).length !== 0
+                                            ? info
+                                            : { name: "", avatar: "" }
+                                    }
+                                    urlImg={
+                                        Object.keys(info).length !== 0
+                                            ? info
+                                            : { name: "", avatar: "" }
+                                    }
+                                /> */}
                             </div>
                         </div>
                         <div

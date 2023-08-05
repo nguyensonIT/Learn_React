@@ -33,6 +33,15 @@
     padding: 10px;
 }
 
+.header-search-btn:focus {
+    outline: none;
+}
+
+.header-search-btn:active {
+    background-color: #000;
+    color: #ccc;
+}
+
 .header-search-btn i {
     color: #ccc;
 }
@@ -64,4 +73,29 @@
 .user-icon:hover {
     color: #0056b3;
     cursor: pointer;
+}
+
+/* loading  */
+
+.loading-delete {
+    background: rgba(0, 0, 0, .5);
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2024;
+}
+
+.loading-delete-content {
+    position: relative;
+    height: 100%;
+    transform: translateX(50%);
+    top: 50%;
+}
+
+/* loading-info */
+
+.loading-info {
+    text-align: center;
 }
